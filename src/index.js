@@ -27,7 +27,7 @@ const Total = (props) => {
   //Constante que hace que el componente tome los 3 ejercicios y los suma.
   return (
     <p>
-      Number of exercises{" "}
+      Number of exercises:{" "}
       {props.parts[0].exercises +
         props.parts[1].exercises +
         props.parts[2].exercises}
