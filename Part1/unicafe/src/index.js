@@ -14,10 +14,31 @@ const Text = ({ text, value }) => (
     {text} {value}
   </div>
 );
+
+const All = ({ text, value }) => (
+  <div>
+    {text} {value}
+  </div>
+);
+
+const Positive = ({ text, value, good }) => (
+  <div>
+    {text}
+    {good / value}
+  </div>
+);
+
+const Average = ({ text, value, total }) => (
+  <div>
+    {text} {value / total}
+  </div>
+);
+
 const App = () => {
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
+  const average = good * 1 + neutral * 0 + bad * -1;
 
   return (
     <div>
@@ -32,6 +53,9 @@ const App = () => {
         <Text text="good" value={good} />
         <Text text="neutral" value={neutral} />
         <Text text="bad" value={bad} />
+        <All text="all" value={good + bad + neutral} />
+        <Positive text="posivites " value={good + bad + neutral} good={good} />
+        <Average text="average " value={average} total={good + bad + neutral} />
       </div>
     </div>
   );
