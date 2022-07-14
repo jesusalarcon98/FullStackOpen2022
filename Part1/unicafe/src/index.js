@@ -4,17 +4,22 @@ import ReactDOM from "react-dom";
 const Title = ({ text }) => <h1>{text}</h1>;
 
 const Statics = ({ good, bad, neutral, average }) => {
-  /* Esta entrando */
-  return (
-    <div>
-      <Text text="good" value={good} />
-      <Text text="neutral" value={neutral} />
-      <Text text="bad" value={bad} />
-      <All text="all" value={good + bad + neutral} />
-      <Positive text="posivites " value={good + bad + neutral} good={good} />
-      <Average text="average " value={average} total={good + bad + neutral} />
-    </div>
-  );
+  console.log(good);
+  if (good !== 0 || neutral !== 0 || bad !== 0) {
+    /* Esta entrando */
+    return (
+      <div>
+        <Text text="good" value={good} />
+        <Text text="neutral" value={neutral} />
+        <Text text="bad" value={bad} />
+        <All text="all" value={good + bad + neutral} />
+        <Positive text="posivites " value={good + bad + neutral} good={good} />
+        <Average text="average " value={average} total={good + bad + neutral} />
+      </div>
+    );
+  } else {
+    return <div>No feedback given</div>;
+  }
 };
 
 const Button = ({ handleClick, text }) => (
