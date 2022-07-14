@@ -3,10 +3,22 @@ import ReactDOM from "react-dom";
 
 const Title = ({ text }) => <h1>{text}</h1>;
 
-const Button = ({ handleClick, text, value }) => (
-  <button onClick={handleClick}>
-    {text} {value}
-  </button>
+const Statics = ({ good, bad, neutral, average }) => {
+  /* Esta entrando */
+  return (
+    <div>
+      <Text text="good" value={good} />
+      <Text text="neutral" value={neutral} />
+      <Text text="bad" value={bad} />
+      <All text="all" value={good + bad + neutral} />
+      <Positive text="posivites " value={good + bad + neutral} good={good} />
+      <Average text="average " value={average} total={good + bad + neutral} />
+    </div>
+  );
+};
+
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
 );
 
 const Text = ({ text, value }) => (
@@ -50,12 +62,7 @@ const App = () => {
       </div>
       <div>
         <Title text="Statics" />
-        <Text text="good" value={good} />
-        <Text text="neutral" value={neutral} />
-        <Text text="bad" value={bad} />
-        <All text="all" value={good + bad + neutral} />
-        <Positive text="posivites " value={good + bad + neutral} good={good} />
-        <Average text="average " value={average} total={good + bad + neutral} />
+        <Statics good={good} bad={bad} neutral={neutral} average={average} />
       </div>
     </div>
   );
