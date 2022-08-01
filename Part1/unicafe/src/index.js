@@ -1,61 +1,48 @@
-import React, { useState } from "react"; //importamos la funcion state
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
 const Title = ({ text }) => <h1>{text}</h1>;
 
-const Statics = ({ good, bad, neutral, average }) => {
-  console.log(good);
-  if (good !== 0 || neutral !== 0 || bad !== 0) {
-    /* Esta entrando */
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
+
+const Statistic = ({ text, value }) => {
+  return (
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
+  );
+};
+
+const Statistics = ({ good, bad, neutral }) => {
+  const all = good + neutral + bad;
+  const average = (good - bad) / all;
+  const positive = (good / all) * 100 + "%";
+  if (all !== 0) {
     return (
-      <div>
-        <Text text="good" value={good} />
-        <Text text="neutral" value={neutral} />
-        <Text text="bad" value={bad} />
-        <All text="all" value={good + bad + neutral} />
-        <Positive text="posivites " value={good + bad + neutral} good={good} />
-        <Average text="average " value={average} total={good + bad + neutral} />
-      </div>
+      <table>
+        <tbody>
+          <Statistic text="good" value={good} />
+          <Statistic text="neutral" value={neutral} />
+          <Statistic text="bad" value={bad} />
+          <Statistic text="all" value={all} />
+          <Statistic text="posivites " value={positive} />
+          <Statistic text="average " value={average} />
+        </tbody>
+      </table>
     );
   } else {
     return <div>No feedback given</div>;
   }
 };
 
-const Button = ({ handleClick, text }) => (
-  <button onClick={handleClick}>{text}</button>
-);
-
-const Text = ({ text, value }) => (
-  <div>
-    {text} {value}
-  </div>
-);
-
-const All = ({ text, value }) => (
-  <div>
-    {text} {value}
-  </div>
-);
-
-const Positive = ({ text, value, good }) => (
-  <div>
-    {text}
-    {good / value}
-  </div>
-);
-
-const Average = ({ text, value, total }) => (
-  <div>
-    {text} {value / total}
-  </div>
-);
-
 const App = () => {
+  //each click has his own state
   const [good, setGood] = useState(0);
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
-  const average = good * 1 + neutral * 0 + bad * -1;
 
   return (
     <div>
@@ -66,8 +53,8 @@ const App = () => {
         <Button handleClick={() => setBad(bad + 1)} text="bad" />
       </div>
       <div>
-        <Title text="Statics" />
-        <Statics good={good} bad={bad} neutral={neutral} average={average} />
+        <Title text="Statistics " />
+        <Statistics good={good} bad={bad} neutral={neutral} />
       </div>
     </div>
   );
