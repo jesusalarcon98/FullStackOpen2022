@@ -1,28 +1,34 @@
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 
-const Button = ({ handleClick, text }) => {
-  const random = Math.floor(Math.random() * anecdotes.length);
-  return (
-    <div>
-      <Anecdote text={anecdotes[random]} />
-      <button onClick={handleClick}>{text}</button>
-    </div>
-  );
-};
+const Button = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
+
+const ButtonArreglo = ({ handleClick, text }) => (
+  <button onClick={handleClick}>{text}</button>
+);
 
 const Anecdote = ({ text }) => <p>{text}</p>;
 
 const App = () => {
-  const [selected, setSelected] = useState(0);
-  console.log("selected " + selected);
+  const [selected, setSelected] = useState(0); //anecdota
+  const [votes, setVoted] = useState([]); //votos
+  const setToSelected = () => {
+    //funcion de anecdota para numero random
+    const random = Math.floor(Math.random() * anecdotes.length);
+    setSelected(random);
+  };
+  const ary = new Uint8Array(anecdotes.length); //Arreglo vacío
+  console.log(ary);
+  const copy = [...ary];
+  copy[2] = copy[2] + 1;
 
   return (
     <div>
-      <Button
-        handleClick={() => setSelected(selected + 1)}
-        text="Next anecdote"
-      />
+      <Anecdote text={anecdotes[selected]} />
+      <Button handleClick={setToSelected} text="Next anecdote" />
+      <ButtonArreglo handleClick={setVoted} text="Vote" />
     </div>
   );
 };
