@@ -5,34 +5,41 @@ const Button = ({ handleClick, text }) => (
   <button onClick={handleClick}>{text}</button>
 );
 
-const ButtonArreglo = ({ handleClick, text }) => (
-  <button onClick={handleClick}>{text}</button>
-);
+const ButtonArreglo = ({ handleClick, text }) => {
+  console.log(handleClick);
+
+  return <button onClick={handleClick}>{text}</button>;
+};
+const Votes = ({ text }) => {
+  return <p>has {text} votes</p>;
+};
 
 const Anecdote = ({ text }) => <p>{text}</p>;
 
 const App = () => {
   const [selected, setSelected] = useState(0); //anecdota
-  const [votes, setVoted] = useState([]); //votos
+  const [votes, setVoted] = useState(Array(anecdotes.length).fill(0)); //votos
   const setToSelected = () => {
     //funcion de anecdota para numero random
     const random = Math.floor(Math.random() * anecdotes.length);
     setSelected(random);
   };
-  const ary = new Uint8Array(anecdotes.length); //Arreglo vacío
-  console.log(ary);
-  const copy = [...ary];
-  copy[2] = copy[2] + 1;
+  const handleToVotes = () => {
+    const copy = [...votes];
+    copy[selected] += 1;
+    setVoted(copy);
+  };
+  // increment the value in position 2 by one
 
   return (
     <div>
       <Anecdote text={anecdotes[selected]} />
       <Button handleClick={setToSelected} text="Next anecdote" />
-      <ButtonArreglo handleClick={setVoted} text="Vote" />
+      <Votes text={votes[selected]} />
+      <ButtonArreglo handleClick={handleToVotes} text="Vote" />
     </div>
   );
 };
-
 const anecdotes = [
   "If it hurts, do it more often",
   "Adding manpower to a late software project makes it later!",
