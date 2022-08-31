@@ -1,25 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react"; //funciona todo bien de momento
+import Course from "./components/Course";
 
-function App() {
+const App = ({ course }) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <ul>
+        {console.log(course[0])}
+        {course.map((course) => (
+          <Course key={course.id} course={course} />
+        ))}
+        {/* const contentarr = course.map((courses) => courses.parts)
+         */}
+      </ul>
     </div>
   );
-}
+};
 
 export default App;
