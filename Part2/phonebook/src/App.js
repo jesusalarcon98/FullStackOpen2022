@@ -5,13 +5,20 @@ const App = () => {
   const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
   const [newName, setNewName] = useState(""); //elmento entrada
 
+  //console.log(array.some(data => data.lenguaje === 'javascript'));
+
   const addPersons = (e) => {
     e.preventDefault();
-    const personObject = {
-      name: newName,
-    };
-    setPersons(persons.concat(personObject));
-    setNewName("");
+    if (persons.some((data) => data.name === newName)) {
+      alert(`${newName} is already added to phonebook`);
+      setNewName("");
+    } else {
+      const personObject = {
+        name: newName,
+      };
+      setPersons(persons.concat(personObject));
+      setNewName("");
+    }
   };
 
   const handlePersonChange = (event) => {
