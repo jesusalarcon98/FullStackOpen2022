@@ -1,6 +1,12 @@
 import React from "react";
 
 const Person = ({ key, person }) => {
-  return <li key={key}>{person.name}</li>;
+  return (
+    <div>
+      <div key={key}>
+        {person.name} {person.number}
+      </div>
+    </div>
+  );
 };
 export default Person;
