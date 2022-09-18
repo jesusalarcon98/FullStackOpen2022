@@ -4,18 +4,6 @@ import Form from "./components/Form.js";
 import InputFilter from "./components/InputFilter";
 import axios from "axios";
 
-/* 
-
-const App = () => {
-  const hook = () => {
-    console.log("effect");
-    axios.get("http://localhost:3001/notes").then((response) => {
-      console.log("promise fulfilled");
-      setNotes(response.data);
-    });
-  };
-  console.log("render", notas.length, "notes");
-  useEffect(hook, []); */
 function App() {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
@@ -23,13 +11,10 @@ function App() {
   const [personsFilter, setPersonsFilter] = useState("");
 
   const hook = () => {
-    console.log("effect");
     axios.get("http://localhost:3001/persons").then((response) => {
-      console.log("promesa");
       setPersons(response.data);
     });
   };
-  console.log("render", persons.length, "persons");
   useEffect(hook, []);
 
   const addPersons = (e) => {
