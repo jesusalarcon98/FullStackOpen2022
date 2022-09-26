@@ -1,9 +1,9 @@
 import React from "react";
 
-const Countrie = ({ index, countrie }) => {
+const Countrie = ({ countrie }) => {
   return (
     <div>
-      <div index={index}>{countrie.name.common}</div>
+      <div>{countrie.name.common}</div>
     </div>
   );
 };
