@@ -19,7 +19,11 @@ function App() {
       <h2>Countries</h2>
       <InputFilter setCountrieFilter={setCountrieFilter} />
       <ul>
-        <Filter countries={countries} countriesFilter={countriesFilter} />
+        <Filter
+          countries={countries}
+          countriesFilter={countriesFilter}
+ 
+        />
       </ul>
     </div>
   );

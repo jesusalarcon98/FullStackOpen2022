@@ -1,6 +1,19 @@
 import Countrie from "./Countrie";
 import DetailCountry from "./DetailCountry";
 
+function Form() {
+  function handleSubmit(e) {
+    e.preventDefault();
+    console.log("You clicked submit.");
+  }
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <button type="submit">Submit</button>
+    </form>
+  );
+}
+
 const Filter = ({ countries, countriesFilter }) => {
   let filters = countries.filter((val) => {
     if (val.name.common.toLowerCase().includes(countriesFilter.toLowerCase())) {
@@ -29,6 +42,7 @@ const Filter = ({ countries, countriesFilter }) => {
         return (
           <div key={index}>
             <Countrie countrie={countrie} />
+            {Form()}
           </div>
         );
       });
