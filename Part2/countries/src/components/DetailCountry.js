@@ -1,7 +1,6 @@
 import React from "react";
 
 const DetailCountry = ({ countrie }) => {
-  console.log("entrando aqui");
   return (
     <div>
       <h1>{countrie.name.common}</h1>
