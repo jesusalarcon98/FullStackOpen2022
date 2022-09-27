@@ -1,21 +1,13 @@
 import React from "react";
-import Countrie from "./Countrie";
 
-const ShowCountries = ({ countries, countriesFilter }) => {
-  return countries
-    .filter((val) => {
-      if (
-        val.name.common.toLowerCase().includes(countriesFilter.toLowerCase())
-      ) {
-        return val;
-      } else return false;
-    })
-    .map((countrie, index) => {
-      return (
-        <div key={index}>
-          <Countrie countrie={countrie} />
-        </div>
-      );
-    });
+const ShowCountries = ({ countriesShow, setCountriesShow }) => {
+  return countriesShow.map((countrie, index) => {
+    return (
+      <div key={index}>
+        {countrie.name.common}
+        <button onClick={() => setCountriesShow([countrie])}>Show</button>
+      </div>
+    );
+  });
 };
 export default ShowCountries;

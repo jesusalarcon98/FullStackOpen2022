@@ -2,38 +2,24 @@ import React from "react";
 import DetailCountry from "./DetailCountry";
 import ShowCountries from "./ShowCountries";
 
-const Filters = ({ countries, countriesFilter, filters }) => {
-  if (filters > 10) {
+const Filters = ({ countriesShow, setCountriesShow }) => {
+  if (countriesShow.length > 10) {
     return (
       <div>
         <p>Too many matches, specify another filter</p>
       </div>
     );
-  } else if (filters <= 10 && filters > 1) {
+  } else if (countriesShow.length <= 10 && countriesShow.length > 1) {
     return (
       <div>
         <ShowCountries
-          countries={countries}
-          countriesFilter={countriesFilter}
+          countriesShow={countriesShow}
+          setCountriesShow={setCountriesShow}
         />
       </div>
     );
-  } else {
-    return countries
-      .filter((val) => {
-        if (
-          val.name.common.toLowerCase().includes(countriesFilter.toLowerCase())
-        ) {
-          return val;
-        } else return false;
-      })
-      .map((countrie, index) => {
-        return (
-          <div key={index}>
-            <DetailCountry countrie={countrie} />
-          </div>
-        );
-      });
+  } else if (countriesShow.length === 1) {
+    return <DetailCountry countriesShow={countriesShow[0]} />;
   }
 };
 
