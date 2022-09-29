@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Note from "./components/Note";
 import noteService from "./services/notes";
 
@@ -31,7 +30,6 @@ const App = () => {
       })
       .catch((error) => {
         alert(`The note '${note.content}' was already deleted from server`);
-        console.log(id);
         setNotes(notes.filter((n) => n.id !== id));
       });
   };
@@ -40,7 +38,6 @@ const App = () => {
     const result = notes.filter((note) => note.content === newNote);
     event.preventDefault();
     if (result.length === 0) {
-      console.log(result.length);
       const noteObject = {
         content: newNote,
         date: new Date().toISOString(),
