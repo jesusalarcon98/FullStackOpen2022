@@ -7,9 +7,9 @@ const Filter = ({ persons, personsFilter }) => {
         return val;
       } else if (val.name.toLowerCase().includes(personsFilter.toLowerCase())) {
         return val;
-      }
+      } else return false;
     })
-    .map((person) => <Person key={person.id} person={person} />);
+    .map((person, index) => <Person index={index} person={person} />);
 };
 
 export default Filter;

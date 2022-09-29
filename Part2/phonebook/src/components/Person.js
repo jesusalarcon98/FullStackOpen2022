@@ -1,11 +1,9 @@
 import React from "react";
 
-const Person = ({ key, person }) => {
+const Person = ({ index, person }) => {
   return (
-    <div>
-      <div key={key}>
-        {person.name} {person.number}
-      </div>
+    <div key={index}>
+      {person.name} {person.number}
     </div>
   );
 };
