@@ -12,7 +12,14 @@ const AddPerson = (personObject) => {
   return request.then((response) => response.data);
 };
 
+const DeletePerson = (id) => {
+  console.log("id", id);
+  const request = axios.delete(`${baseUrl}/${id}`);
+  return request.then((response) => response.data);
+};
+
 export default {
   getAll,
   AddPerson,
+  DeletePerson,
 };

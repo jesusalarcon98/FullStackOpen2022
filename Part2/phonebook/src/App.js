@@ -1,7 +1,9 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import Form from "./components/Form.js";
 import InputFilter from "./components/InputFilter";
+import Person from "./components/Person";
 import PersonService from "./services/persons";
 
 function App() {
@@ -17,6 +19,15 @@ function App() {
   };
   useEffect(hook, []);
 
+  const deletePerson = (e) => {
+    e.preventDefault();
+    PersonService.DeletePerson(persons.id).then((deletePersons) => {
+      console.log("persons", persons.id);
+      setPersons(deletePersons);
+    });
+    console.log("hola mundo");
+  };
+
   const addPersons = (e) => {
     e.preventDefault();
     if (persons.some((data) => data.name === newName)) {
@@ -29,13 +40,11 @@ function App() {
         number: newNumber,
       };
 
-      PersonService.AddPerson(personObject)
-        .then((addPersons) => {
-          setPersons(persons.concat(addPersons));
-          setNewName("");
-          setNewNumber("");
-        })
-        .catch((err) => {});
+      PersonService.AddPerson(personObject).then((addPersons) => {
+        setPersons(persons.concat(addPersons));
+        setNewName("");
+        setNewNumber("");
+      });
     }
   };
 
@@ -45,6 +54,7 @@ function App() {
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value);
   };
+
   return (
     <div>
       <h2>PhoneBook</h2>
@@ -59,7 +69,11 @@ function App() {
       />
       <h2>Numbers</h2>
       <ul>
-        <Filter persons={persons} personsFilter={personsFilter} />
+        <Filter
+          persons={persons}
+          personsFilter={personsFilter}
+          deletePerson={deletePerson}
+        />
       </ul>
     </div>
   );

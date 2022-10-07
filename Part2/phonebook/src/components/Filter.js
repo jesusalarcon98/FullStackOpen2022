@@ -1,6 +1,6 @@
 import Person from "./Person";
 
-const Filter = ({ persons, personsFilter }) => {
+const Filter = ({ persons, personsFilter, deletePerson }) => {
   return persons
     .filter((val) => {
       if (personsFilter === "") {
@@ -9,7 +9,9 @@ const Filter = ({ persons, personsFilter }) => {
         return val;
       } else return false;
     })
-    .map((person, index) => <Person index={index} person={person} />);
+    .map((person, index) => (
+      <Person deletePerson={deletePerson} index={index} person={person} />
+    ));
 };
 
 export default Filter;
