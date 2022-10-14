@@ -1,17 +1,15 @@
 import Person from "./Person";
 
-const Filter = ({ persons, personsFilter, deletePerson }) => {
-  return persons
-    .filter((val) => {
-      if (personsFilter === "") {
-        return val;
-      } else if (val.name.toLowerCase().includes(personsFilter.toLowerCase())) {
-        return val;
-      } else return false;
-    })
-    .map((person, index) => (
-      <Person deletePerson={deletePerson} index={index} person={person} />
-    ));
+const Filter = ({ personasFiltradas, setPersonasFiltradas }) => {
+  console.log(personasFiltradas);
+  return personasFiltradas.map((persons, index) => {
+    return (
+      <div key={index}>
+        {persons.name} {persons.number}
+        <button onClick={() => setPersonasFiltradas([persons])}>Show</button>
+      </div>
+    );
+  });
 };
 
 export default Filter;

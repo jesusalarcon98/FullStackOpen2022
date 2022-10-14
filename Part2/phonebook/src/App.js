@@ -1,30 +1,32 @@
-import axios from "axios";
 import React, { useState, useEffect } from "react";
 import Filter from "./components/Filter";
 import Form from "./components/Form.js";
 import InputFilter from "./components/InputFilter";
-import Person from "./components/Person";
 import PersonService from "./services/persons";
 
 function App() {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [personsFilter, setPersonsFilter] = useState("");
+  const [personsFilter, setPersonsFilter] = useState(); //countriesFilter setCountriesFilter
+  const [personasFiltradas, setPersonasFiltradas] = useState([]); //CountriesShow, SetCountriesShow
 
   const hook = () => {
     PersonService.getAll().then((getPersons) => {
       setPersons(getPersons);
+      setPersonasFiltradas(getPersons);
     });
   };
   useEffect(hook, []);
 
-  const deletePerson = (e) => {
-    e.preventDefault();
-    PersonService.DeletePerson(persons.id).then((deletePersons) => {
-      console.log("persons", persons.id);
-      setPersons(deletePersons);
-    });
+  const deletePerson = (id) => {
+    console.log("persons", id);
+    PersonService.DeletePerson(persons.map((person) => person.id)).then(
+      (deletePersons) => {
+        console.log("persons", persons.id);
+        setPersons(deletePersons);
+      }
+    );
     console.log("hola mundo");
   };
 
@@ -58,7 +60,11 @@ function App() {
   return (
     <div>
       <h2>PhoneBook</h2>
-      <InputFilter setPersonsFilter={setPersonsFilter} />
+      <InputFilter
+        setPersonasFiltradas={setPersonasFiltradas}
+        persons={persons}
+        personsFilter={personsFilter}
+      />
 
       <Form
         name={newName}
@@ -70,9 +76,8 @@ function App() {
       <h2>Numbers</h2>
       <ul>
         <Filter
-          persons={persons}
-          personsFilter={personsFilter}
-          deletePerson={deletePerson}
+          personasFiltradas={personasFiltradas}
+          setPersonasFiltradas={setPersonasFiltradas}
         />
       </ul>
     </div>
