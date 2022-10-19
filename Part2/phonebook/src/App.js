@@ -8,7 +8,7 @@ function App() {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [personsFilter, setPersonsFilter] = useState(); //countriesFilter setCountriesFilter
+  const [personsFilter, setPersonsFilter] = useState(""); //countriesFilter setCountriesFilter
   const [personasFiltradas, setPersonasFiltradas] = useState([]); //CountriesShow, SetCountriesShow
 
   const hook = () => {
@@ -20,14 +20,10 @@ function App() {
   useEffect(hook, []);
 
   const deletePerson = (id) => {
-    console.log("persons", id);
-    PersonService.DeletePerson(persons.map((person) => person.id)).then(
-      (deletePersons) => {
-        console.log("persons", persons.id);
-        setPersons(deletePersons);
-      }
-    );
-    console.log("hola mundo");
+    PersonService.DeletePerson(id).then((deletePersons) => {
+      console.log("persons", id);
+      setPersons(deletePersons);
+    });
   };
 
   const addPersons = (e) => {
@@ -64,6 +60,7 @@ function App() {
         setPersonasFiltradas={setPersonasFiltradas}
         persons={persons}
         personsFilter={personsFilter}
+        setPersonsFilter={setPersonsFilter}
       />
 
       <Form
@@ -77,7 +74,7 @@ function App() {
       <ul>
         <Filter
           personasFiltradas={personasFiltradas}
-          setPersonasFiltradas={setPersonasFiltradas}
+          setPersonasFiltradas={deletePerson}
         />
       </ul>
     </div>
