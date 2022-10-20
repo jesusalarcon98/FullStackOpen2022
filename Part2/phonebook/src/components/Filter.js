@@ -1,14 +1,10 @@
-const Filter = ({ personasFiltradas, setPersonasFiltradas }) => {
-  return personasFiltradas.map((persons, index) => {
-    return (
-      <div key={index}>
-        {persons.name} {persons.number}
-        <button onClick={() => setPersonasFiltradas([persons.id])}>
-          Delete
-        </button>
-      </div>
-    );
-  });
+const Filter = ({ person, deletedPerson }) => {
+  return (
+    <div>
+      {person.name} {person.number}
+      <button onClick={deletedPerson}>Delete</button>
+    </div>
+  );
 };
 
 export default Filter;

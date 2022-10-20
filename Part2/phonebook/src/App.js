@@ -20,18 +20,30 @@ function App() {
   useEffect(hook, []);
 
   const deletePerson = (id) => {
-    PersonService.DeletePerson(id).then((deletePersons) => {
-      console.log("persons", id);
-      setPersons(deletePersons);
-    });
+    /* 
+    const personas = Object.values(persons);
+    const person = personas.find((n) => n.id === id); */
+    PersonService.DeletePerson(id)
+      .then((deletePersons) => {
+        setPersons(deletePersons);
+      })
+      .catch((error) => {
+        alert(`The person was already deleted from the server`);
+        setPersons(personasFiltradas);
+      });
   };
 
   const addPersons = (e) => {
     e.preventDefault();
     if (persons.some((data) => data.name === newName)) {
-      alert(`${newName} is already added to phonebook`);
-      setNewName("");
-      setNewNumber("");
+      const personID = persons.find((n) => n.name === newName);
+      if (
+        window.confirm(
+          `${newName} is already added to the phonebook, replace the old number?`
+        )
+      ) {
+        updatePerson(personID.id, newNumber);
+      }
     } else {
       const personObject = {
         name: newName,
@@ -40,10 +52,20 @@ function App() {
 
       PersonService.AddPerson(personObject).then((addPersons) => {
         setPersons(persons.concat(addPersons));
+        setPersonasFiltradas(persons.concat(addPersons));
         setNewName("");
         setNewNumber("");
       });
     }
+  };
+
+  const updatePerson = (id, number) => {
+    console.log(id, number);
+    const person = persons.find((n) => n.id === id);
+    const changedPerson = { ...person, number: number };
+    PersonService.UpdatePerson(id, changedPerson).then((updatedPerson) => {
+      setPersons(updatedPerson);
+    });
   };
 
   const handlePersonChange = (event) => {
@@ -72,10 +94,13 @@ function App() {
       />
       <h2>Numbers</h2>
       <ul>
-        <Filter
-          personasFiltradas={personasFiltradas}
-          setPersonasFiltradas={deletePerson}
-        />
+        {personasFiltradas.map((people) => (
+          <Filter
+            key={people.id}
+            person={people}
+            deletedPerson={() => deletePerson(people.id)}
+          />
+        ))}
       </ul>
     </div>
   );
