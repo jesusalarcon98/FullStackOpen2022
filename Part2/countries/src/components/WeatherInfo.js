@@ -14,7 +14,6 @@ const WeatherInfo = ({ city }) => {
   };
   useEffect(hook, [queryApi]);
   if (weather !== "") {
-    console.log(weather);
     return (
       <div>
         <h3>Weather in {city}</h3>

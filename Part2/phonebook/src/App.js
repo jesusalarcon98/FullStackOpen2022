@@ -8,29 +8,29 @@ function App() {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
-  const [personsFilter, setPersonsFilter] = useState(""); //countriesFilter setCountriesFilter
-  const [personasFiltradas, setPersonasFiltradas] = useState([]); //CountriesShow, SetCountriesShow
+  const [personsFilter, setPersonsFilter] = useState("");
 
   const hook = () => {
     PersonService.getAll().then((getPersons) => {
       setPersons(getPersons);
-      setPersonasFiltradas(getPersons);
     });
   };
   useEffect(hook, []);
 
-  const deletePerson = (id) => {
-    /* 
-    const personas = Object.values(persons);
-    const person = personas.find((n) => n.id === id); */
-    PersonService.DeletePerson(id)
-      .then((deletePersons) => {
-        setPersons(deletePersons);
-      })
-      .catch((error) => {
-        alert(`The person was already deleted from the server`);
-        setPersons(personasFiltradas);
-      });
+  const deletePerson = (name, id) => {
+    return () => {
+      if (window.confirm(`Delete ${name}? `)) {
+        PersonService.DeletePerson(id)
+          .then(() => {
+            setPersons(persons.filter((n) => n.id !== id));
+            setNewName("");
+            setNewNumber("");
+          })
+          .catch((error) => {
+            setPersons(persons.filter((n) => n.name !== name));
+          });
+      }
+    };
   };
 
   const addPersons = (e) => {
@@ -52,7 +52,6 @@ function App() {
 
       PersonService.AddPerson(personObject).then((addPersons) => {
         setPersons(persons.concat(addPersons));
-        setPersonasFiltradas(persons.concat(addPersons));
         setNewName("");
         setNewNumber("");
       });
@@ -60,29 +59,31 @@ function App() {
   };
 
   const updatePerson = (id, number) => {
-    console.log(id, number);
     const person = persons.find((n) => n.id === id);
     const changedPerson = { ...person, number: number };
     PersonService.UpdatePerson(id, changedPerson).then((updatedPerson) => {
-      setPersons(updatedPerson);
+      setPersons(persons.map((n) => (n.name === newName ? updatedPerson : n)));
     });
   };
 
   const handlePersonChange = (event) => {
     setNewName(event.target.value);
   };
+
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value);
+  };
+
+  const handleSearchChange = (event) => {
+    setPersonsFilter(event.target.value);
   };
 
   return (
     <div>
       <h2>PhoneBook</h2>
       <InputFilter
-        setPersonasFiltradas={setPersonasFiltradas}
-        persons={persons}
         personsFilter={personsFilter}
-        setPersonsFilter={setPersonsFilter}
+        handleSearchChange={handleSearchChange}
       />
 
       <Form
@@ -94,13 +95,11 @@ function App() {
       />
       <h2>Numbers</h2>
       <ul>
-        {personasFiltradas.map((people) => (
-          <Filter
-            key={people.id}
-            person={people}
-            deletedPerson={() => deletePerson(people.id)}
-          />
-        ))}
+        <Filter
+          persons={persons}
+          personsFilter={personsFilter}
+          deletedPerson={deletePerson}
+        />
       </ul>
     </div>
   );

@@ -1,8 +1,20 @@
-const Filter = ({ person, deletedPerson }) => {
+import React from "react";
+import Person from "./Person";
+const Filter = ({ persons, personsFilter, deletedPerson }) => {
   return (
     <div>
-      {person.name} {person.number}
-      <button onClick={deletedPerson}>Delete</button>
+      {persons
+        .filter((person) =>
+          person.name.toUpperCase().includes(personsFilter.toUpperCase())
+        )
+        .map((person) => (
+          <Person
+            key={person.id}
+            name={person.name}
+            number={person.number}
+            deletePerson={deletedPerson(person.name, person.id)}
+          />
+        ))}
     </div>
   );
 };

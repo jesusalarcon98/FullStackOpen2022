@@ -4,7 +4,6 @@ const baseUrl = "http://localhost:3001/persons";
 
 const getAll = () => {
   const request = axios.get(baseUrl);
-  console.log(request.then((response) => response.data));
   return request.then((response) => response.data);
 };
 

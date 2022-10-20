@@ -5,7 +5,6 @@ const Parts = ({ total }) => {
     (Value, currentValue) => Value + currentValue.exercises,
     0
   );
-  console.log(Total);
 
   return (
     <div>
