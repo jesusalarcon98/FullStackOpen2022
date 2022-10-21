@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Note from "./components/Note";
+import Notification from "./components/Notification";
 import noteService from "./services/notes";
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [newNote, setNewNote] = useState("a new note...");
   const [showAll, setShowAll] = useState(true);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const hook = () => {
     noteService.getAll().then((initialNotes) => {
@@ -22,13 +24,19 @@ const App = () => {
   const toggleImportanceOf = (id) => {
     const note = notes.find((n) => n.id === id);
     const changedNote = { ...note, important: !note.important };
+
     noteService
-      .update(id, changedNote)
-      .then((initialNotes) => {
-        setNotes(notes.map((note) => (note.id !== id ? note : initialNotes)));
+      .update(changedNote)
+      .then((returnedNote) => {
+        setNotes(notes.map((note) => (note.id !== id ? note : returnedNote)));
       })
       .catch((error) => {
-        alert(`The note '${note.content}' was already deleted from server`);
+        setErrorMessage(
+          `Note '${note.content}' was already removed from server`
+        );
+        setTimeout(() => {
+          setErrorMessage(null);
+        }, 5000);
         setNotes(notes.filter((n) => n.id !== id));
       });
   };
@@ -51,6 +59,22 @@ const App = () => {
     }
   };
 
+  const Footer = () => {
+    const footerStyle = {
+      color: "green",
+      fontStyle: "italic",
+      fontSize: 16,
+    };
+    return (
+      <div style={footerStyle}>
+        <br />
+        <em>
+          Note app, Department of Computer Science, University of Helsinki 2020
+        </em>
+      </div>
+    );
+  };
+
   const handleNoteChange = (event) => {
     setNewNote(event.target.value);
   };
@@ -62,6 +86,7 @@ const App = () => {
   return (
     <div>
       <h1>Notes</h1>
+      <Notification message={errorMessage} />
       <div>
         <button onClick={() => setShowAll(!showAll)}>
           show {showAll ? "important" : "all"}
@@ -80,6 +105,8 @@ const App = () => {
         <input value={newNote} onChange={handleNoteChange} />
         <button type="submit">save</button>
       </form>
+
+      <Footer />
     </div>
   );
 };

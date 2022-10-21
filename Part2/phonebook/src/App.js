@@ -3,12 +3,14 @@ import Filter from "./components/Filter";
 import Form from "./components/Form.js";
 import InputFilter from "./components/InputFilter";
 import PersonService from "./services/persons";
+import Notification from "./components/Notification";
 
 function App() {
   const [persons, setPersons] = useState([]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [personsFilter, setPersonsFilter] = useState("");
+  const [notification, setNotification] = useState(null);
 
   const hook = () => {
     PersonService.getAll().then((getPersons) => {
@@ -49,9 +51,14 @@ function App() {
         name: newName,
         number: newNumber,
       };
-
       PersonService.AddPerson(personObject).then((addPersons) => {
         setPersons(persons.concat(addPersons));
+        setNotification(
+          `The person '${personObject.name}' was added correctly`
+        );
+        setTimeout(() => {
+          setNotification(null);
+        }, 3000);
         setNewName("");
         setNewNumber("");
       });
@@ -62,6 +69,12 @@ function App() {
     const person = persons.find((n) => n.id === id);
     const changedPerson = { ...person, number: number };
     PersonService.UpdatePerson(id, changedPerson).then((updatedPerson) => {
+      setNotification(
+        `The person '${changedPerson.name}' has changed his number to ${changedPerson.number}`
+      );
+      setTimeout(() => {
+        setNotification(null);
+      }, 3000);
       setPersons(persons.map((n) => (n.name === newName ? updatedPerson : n)));
     });
   };
@@ -81,6 +94,7 @@ function App() {
   return (
     <div>
       <h2>PhoneBook</h2>
+      <Notification message={notification} />
       <InputFilter
         personsFilter={personsFilter}
         handleSearchChange={handleSearchChange}
