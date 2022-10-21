@@ -68,15 +68,24 @@ function App() {
   const updatePerson = (id, number) => {
     const person = persons.find((n) => n.id === id);
     const changedPerson = { ...person, number: number };
-    PersonService.UpdatePerson(id, changedPerson).then((updatedPerson) => {
-      setNotification(
-        `The person '${changedPerson.name}' has changed his number to ${changedPerson.number}`
-      );
-      setTimeout(() => {
-        setNotification(null);
-      }, 3000);
-      setPersons(persons.map((n) => (n.name === newName ? updatedPerson : n)));
-    });
+    PersonService.UpdatePerson(id, changedPerson)
+      .then((updatedPerson) => {
+        setNotification(
+          `The person '${changedPerson.name}' has changed his number to ${changedPerson.number}`
+        );
+        setTimeout(() => {
+          setNotification(null);
+        }, 3000);
+        setPersons(
+          persons.map((n) => (n.name === newName ? updatedPerson : n))
+        );
+      })
+      .catch((error) => {
+        setNotification(
+          `The person '${person.name}' was already removed from server`
+        );
+        setPersons(persons.filter((n) => n.id != id));
+      });
   };
 
   const handlePersonChange = (event) => {
