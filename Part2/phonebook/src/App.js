@@ -84,7 +84,7 @@ function App() {
         setNotification(
           `The person '${person.name}' was already removed from server`
         );
-        setPersons(persons.filter((n) => n.id != id));
+        setPersons(persons.filter((n) => n.id !== id));
       });
   };
 

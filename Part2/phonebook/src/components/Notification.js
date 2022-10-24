@@ -1,8 +1,9 @@
 const textStyle = {
-  color: "gray",
   fontSize: 20,
   fontStyle: "italic",
-  
+  marginBottom: 10,
+  borderStyle: "groove",
+  borderColor: "gray",
 };
 
 const Notification = ({ message }) => {
