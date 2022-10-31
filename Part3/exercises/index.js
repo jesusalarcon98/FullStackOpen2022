@@ -1,6 +1,6 @@
 const express = require("express");
-const app = express();
 const morgan = require("morgan");
+const app = express();
 app.use(express.json());
 
 let notes = [
@@ -24,10 +24,14 @@ let notes = [
   },
 ];
 
-
-app.listen(3000, () => {
-  console.log("Listening on port 3000...");
+morgan.token("send-data", function (request, result) {
+  return JSON.stringify(request.body);
 });
+
+app.use(
+  morgan(":method :url :status :response-time - :response-time ms :send-data")
+);
+
 app.get("/", (request, response) => {
   response.send("<h1>Hello World!, welcome</h1>");
 });
