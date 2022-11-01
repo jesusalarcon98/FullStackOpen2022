@@ -1,5 +1,5 @@
-const { request, response } = require("express");
 const express = require("express");
+const morgan = require("morgan");
 const app = express();
 
 app.use(express.json());
@@ -31,6 +31,14 @@ let persons = [
     id: 6,
   },
 ];
+
+morgan.token("info-post", (request) => JSON.stringify(request.body));
+
+app.use(
+  morgan(
+    ":method :url :status :res[content-length] :response-time ms   :info-post"
+  )
+);
 
 app.get("/api/persons", (request, response) => {
   response.json(persons);
