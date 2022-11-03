@@ -30,6 +30,8 @@ morgan.token("send-data", function (request, result) {
   return JSON.stringify(request.body);
 });
 
+app.use(express.static("build"));
+
 app.use(
   morgan(":method :url :status :response-time - :response-time ms :send-data")
 );
