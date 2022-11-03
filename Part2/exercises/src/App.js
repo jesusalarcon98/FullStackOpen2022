@@ -9,13 +9,6 @@ const App = () => {
   const [showAll, setShowAll] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const hook = () => {
-    noteService.getAll().then((initialNotes) => {
-      setNotes(initialNotes);
-    });
-  };
-  useEffect(hook, []);
-
   useEffect(() => {
     noteService.getAll().then((response) => {
       setNotes(response);
