@@ -1,9 +1,7 @@
 const express = require("express");
-const morgan = require("morgan");
-const cors = require("cors");
 const app = express();
-app.use(cors());
-app.use(express.json());
+const cors = require("cors");
+const morgan = require("morgan");
 
 let notes = [
   {
@@ -26,11 +24,15 @@ let notes = [
   },
 ];
 
+app.use(express.json());
+
+app.use(cors());
+
+app.use(express.static("build"));
+
 morgan.token("send-data", function (request, result) {
   return JSON.stringify(request.body);
 });
-
-app.use(express.static("build"));
 
 app.use(
   morgan(":method :url :status :response-time - :response-time ms :send-data")
@@ -51,6 +53,7 @@ app.get("/api/notes/:id", (request, response) => {
     response.status(400).end();
   }
 });
+
 
 app.delete("/api/notes/:id", (request, response) => {
   const id = Number(request.params.id);
