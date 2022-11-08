@@ -6,7 +6,7 @@ if (process.argv.length < 3) {
 }
 
 const password = process.argv[2];
-const url = `mongodb+srv://Jesus:${password}@clusterprueba.hemjedc.mongodb.net/phonebook?retryWrites=true&w=majority`;
+//const url = YourURL
 
 mongoose.connect(url);
 
