@@ -31,31 +31,23 @@ app.get("/api/persons", (request, response) => {
   });
 });
 
-app.post('/api/persons', (request, response, next) => {
-  const body = request.body
+app.post("/api/persons", (request, response) => {
+  const body = request.body;
 
-  const personName = body.name
-  const personNumber = body.number
-
-  if (Object.keys(body).length === 0) {
-      return response.status(400).json({
-        error: 'content missing'
-      })
+  if (body.name === undefined) {
+    return response.status(400).json({
+      error: "Name missing",
+    });
   }
-
   const person = new Person({
-      name: personName,
-      number: personNumber
-      })
+    name: body.name,
+    number: body.number,
+  });
 
-  person.save()
-  .then(savedPerson =>  savedPerson.toJSON())
-  .then(savedAndFormattedPerson => {
-      console.log(`added ${person.name} number ${person.number} to phonebook`)
-      response.json(savedAndFormattedPerson)
-      })
-  .catch(error => next(error))
-})
+  person.save().then((persons) => {
+    response.json(persons);
+  });
+});
 
 app.get("/api/persons/:id", (request, response, next) => {
   Person.findById(request.params.id)

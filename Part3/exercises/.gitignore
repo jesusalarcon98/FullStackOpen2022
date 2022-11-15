@@ -1,3 +1,4 @@
 /node_modules
 mongo.js
 .env
+#rtsp://10.254.1.4:554/cam/realmonitor?channel=1$subtype=1
