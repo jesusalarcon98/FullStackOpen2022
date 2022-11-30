@@ -1,7 +1,8 @@
+require("dotenv").config();
 const mongoose = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 
 const url = process.env.MONGODB_URL;
-
 console.log("connected to", url);
 
 mongoose
@@ -13,9 +14,9 @@ mongoose
     console.log("error connecting:", error.message);
   });
 
-const person = new mongoose.Schema({
-  name: String,
-  number: String,
+const person = mongoose.Schema({
+  name: { type: String, unique: true },
+  number: { type: String, unique: true },
 });
 
 person.set("toJSON", {
@@ -24,6 +25,10 @@ person.set("toJSON", {
     delete returnedObject._id;
     delete returnedObject.__v;
   },
+});
+
+person.plugin(uniqueValidator, {
+  message: "Error, expected {PATH} to be unique.",
 });
 
 module.exports = mongoose.model("Person", person);
