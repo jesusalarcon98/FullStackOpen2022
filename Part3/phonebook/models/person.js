@@ -1,4 +1,3 @@
-require("dotenv").config();
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
@@ -15,8 +14,18 @@ mongoose
   });
 
 const person = mongoose.Schema({
-  name: { type: String, unique: true },
-  number: { type: String, unique: true },
+  name: {
+    type: String,
+    minlength: 3,
+    required: true,
+    unique: true,
+  },
+  number: {
+    type: String,
+    required: true,
+    unique: true,
+    minlength: 8,
+  },
 });
 
 person.set("toJSON", {

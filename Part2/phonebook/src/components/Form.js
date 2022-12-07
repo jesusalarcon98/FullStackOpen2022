@@ -3,7 +3,7 @@ import React from "react";
 const Form = ({ person, number, addPersons, name, numbers }) => {
   return (
     <form onSubmit={addPersons}>
-      <h2>Add a new</h2>
+      <h2>Add a new record</h2>
       <div>
         name: <input value={name} onChange={person} />
       </div>
