@@ -59,13 +59,15 @@ function App() {
           );
           setTimeout(() => {
             setNotification(null);
-          }, 3000);
+          }, 5000);
           setNewName("");
           setNewNumber("");
         })
         .catch((error) => {
-          
-          console.log("Error", error.response.data);
+          setNotification(`${error.response.data.error}`);
+          setTimeout(() => {
+            setNotification(null);
+          }, 5000);
         });
     }
   };
@@ -80,16 +82,16 @@ function App() {
         );
         setTimeout(() => {
           setNotification(null);
-        }, 3000);
+        }, 5000);
         setPersons(
           persons.map((n) => (n.name === newName ? updatedPerson : n))
         );
       })
       .catch((error) => {
-        setNotification(
-          `The person '${person.name}' was already removed from server`
-        );
-        setPersons(persons.filter((n) => n.id !== id));
+        setNotification(`${error.response.data.error}`);
+        setTimeout(() => {
+          setNotification(null);
+        }, 5000);
       });
   };
 

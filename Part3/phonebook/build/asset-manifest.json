@@ -1,19 +1,10 @@
 {
   "files": {
-<<<<<<< HEAD
-    "main.js": "/static/js/main.23046930.js",
+    "main.js": "/static/js/main.dfdedbe5.js",
     "index.html": "/index.html",
-    "main.23046930.js.map": "/static/js/main.23046930.js.map"
+    "main.dfdedbe5.js.map": "/static/js/main.dfdedbe5.js.map"
   },
   "entrypoints": [
-    "static/js/main.23046930.js"
-=======
-    "main.js": "/static/js/main.1b738015.js",
-    "index.html": "/index.html",
-    "main.1b738015.js.map": "/static/js/main.1b738015.js.map"
-  },
-  "entrypoints": [
-    "static/js/main.1b738015.js"
->>>>>>> 6e930ba5ed227bc3bba7c765a983f65c307497cd
+    "static/js/main.dfdedbe5.js"
   ]
 }
