@@ -55,7 +55,7 @@ function App() {
         .then((addPersons) => {
           setPersons(persons.concat(addPersons));
           setNotification(
-            `The person '${personObject.name}' was added correctly, right?`
+            `The person '${personObject.name}' was added correctly`
           );
           setTimeout(() => {
             setNotification(null);
