@@ -51,17 +51,22 @@ function App() {
         name: newName,
         number: newNumber,
       };
-      PersonService.AddPerson(personObject).then((addPersons) => {
-        setPersons(persons.concat(addPersons));
-        setNotification(
-          `The person '${personObject.name}' was added correctly, right?`
-        );
-        setTimeout(() => {
-          setNotification(null);
-        }, 3000);
-        setNewName("");
-        setNewNumber("");
-      });
+      PersonService.AddPerson(personObject)
+        .then((addPersons) => {
+          setPersons(persons.concat(addPersons));
+          setNotification(
+            `The person '${personObject.name}' was added correctly, right?`
+          );
+          setTimeout(() => {
+            setNotification(null);
+          }, 3000);
+          setNewName("");
+          setNewNumber("");
+        })
+        .catch((error) => {
+          
+          console.log("Error", error.response.data);
+        });
     }
   };
 
