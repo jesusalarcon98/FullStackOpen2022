@@ -1,13 +1,12 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
-const opts = { runValidators: true };
 
 const url = process.env.MONGODB_URL;
 console.log("connected to", url);
 
 mongoose
   .connect(url)
-  .then((result) => {
+  .then(() => {
     console.log("connected to MongoDB");
   })
   .catch((error) => {
