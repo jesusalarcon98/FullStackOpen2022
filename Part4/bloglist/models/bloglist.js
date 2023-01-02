@@ -1,17 +1,7 @@
 const mongoose = require("mongoose");
-mongoose.set('strictQuery', true);
-const url = process.env.MONGODB_URL;
-console.log("connected to", url);
-mongoose
-  .connect(url)
-  .then(() => {
-    console.log("connected to MongoDB");
-  })
-  .catch((error) => {
-    console.log("error connecting:", error.message);
-  });
+mongoose.set("strictQuery", true);
 
-const blogSchema = mongoose.Schema({
+const blogSchema = new mongoose.Schema({
   title: String,
   author: String,
   url: String,
