@@ -16,7 +16,7 @@ const listWithSomeBlogs = [
     title: "React patterns",
     author: "Michael Chan",
     url: "https://reactpatterns.com/",
-    likes: 7,
+    likes: 12,
     __v: 0,
   },
   {

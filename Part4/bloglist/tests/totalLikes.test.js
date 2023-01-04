@@ -3,7 +3,7 @@ const materials = require("./test_materials");
 /* const materials = require("./test_materials"); */
 
 describe("total likes in the blog", () => {
-  test("0", () => {
+  test("Of empty list is zero", () => {
     const result = totalLikes.blogLikes(materials.noBlogList);
     expect(result).toBe(0);
   });
@@ -13,7 +13,7 @@ describe("total likes in the blog", () => {
     expect(result).toBe(5);
   });
 
-  test("1+", () => {
+  test("Of a bigger list is calculated right", () => {
     const result = totalLikes.blogLikes(materials.listWithSomeBlogs);
     expect(result).toBe(36);
   });
