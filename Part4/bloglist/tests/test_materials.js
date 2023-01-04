@@ -16,7 +16,7 @@ const listWithSomeBlogs = [
     title: "React patterns",
     author: "Michael Chan",
     url: "https://reactpatterns.com/",
-    likes: 12,
+    likes: 3,
     __v: 0,
   },
   {
@@ -48,7 +48,7 @@ const listWithSomeBlogs = [
     title: "TDD harms architecture",
     author: "Robert C. Martin",
     url: "http://blog.cleancoder.com/uncle-bob/2017/03/03/TDD-Harms-Architecture.html",
-    likes: 0,
+    likes: 7,
     __v: 0,
   },
   {

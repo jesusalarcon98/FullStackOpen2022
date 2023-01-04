@@ -3,14 +3,14 @@ const materials = require("./test_materials");
 /* const materials = require("./test_materials"); */
 
 const blog = {
-  title: "React patterns",
-  author: "Michael Chan",
-  likes: 12,
-};
-const blogs = {
   title: "Go To Statement Considered Harmful",
   author: "Edsger W. Dijkstra",
   likes: 5,
+};
+const blogs = {
+  title: "Canonical string reduction",
+  author: "Edsger W. Dijkstra",
+  likes: 12,
 };
 
 describe("Blog with most likes", () => {

@@ -15,6 +15,6 @@ describe("total likes in the blog", () => {
 
   test("Of a bigger list is calculated right", () => {
     const result = totalLikes.blogLikes(materials.listWithSomeBlogs);
-    expect(result).toBe(36);
+    expect(result).toBe(39);
   });
 });
